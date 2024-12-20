@@ -1,40 +1,42 @@
-"use client";
-
-import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";
-import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
-import { createConfig, WagmiProvider } from "wagmi";
+'use client'
+import { WagmiProvider, createConfig, http } from "wagmi";
+import { hardhat, mainnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { http } from "viem";
-import { mainnet } from "viem/chains";
-import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
-import { SolanaWalletConnectors } from "@dynamic-labs/solana";
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 
-const config = createConfig({
-  chains: [mainnet],
-  multiInjectedProviderDiscovery: false,
-  transports: {
-    [mainnet.id]: http(),
-  },
-});
+const config = createConfig(
+  getDefaultConfig({
+    // Your dApps chains
+    chains: [mainnet, hardhat],
+    transports: {
+      // RPC URL for each chain
+      [mainnet.id]: http(
+        `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`,
+      ),
+      [hardhat.id]: http(`http://127.0.0.1:8545`),
+    },
+
+    // Required API Keys
+    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
+
+    // Required App Info
+    appName: "Token Generator",
+
+    // Optional App Info
+    appDescription: "Your App Description",
+    appUrl: "https://family.co", // your app's url
+    appIcon: "https://family.co/logo.png", // your app's icon, no bigger than 1024x1024px (max. 1MB)
+  }),
+);
 
 const queryClient = new QueryClient();
 
-export default function DynamicContext({ children }) {
+export const Web3Provider = ({ children }) => {
   return (
-    <DynamicContextProvider
-      settings={{
-        // Find your environment id at https://app.dynamic.xyz/dashboard/developer
-        environmentId: "REPLACE-WITH-YOUR-ENVIRONMENT-ID",
-        walletConnectors: [EthereumWalletConnectors, SolanaWalletConnectors],
-      }}
-    >
-      <WagmiProvider config={config}>
-        <QueryClientProvider client={queryClient}>
-          <DynamicWagmiConnector>
-            {children}
-          </DynamicWagmiConnector>
-        </QueryClientProvider>
-      </WagmiProvider>
-    </DynamicContextProvider>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <ConnectKitProvider>{children}</ConnectKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
-}
+};

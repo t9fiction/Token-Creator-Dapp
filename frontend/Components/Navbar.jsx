@@ -1,10 +1,11 @@
-import { DynamicWidget } from '@dynamic-labs/sdk-react-core'
+'use client'
+import { ConnectKitButton } from "connectkit";
 import React from 'react'
 
 const Navbar = () => {
   return (
     <div>
-        <DynamicWidget />
+        <ConnectKitButton />
     </div>
   )
 }

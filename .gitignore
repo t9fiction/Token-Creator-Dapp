@@ -6,6 +6,8 @@
 /node_modules
 /.pnp
 .pnp.*
+.next/
+/frontend/.next/
 .yarn/*
 !.yarn/patches
 !.yarn/plugins

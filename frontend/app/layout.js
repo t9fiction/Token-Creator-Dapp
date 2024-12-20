@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
-import DynamicContext from "./_app";
+import { Web3Provider } from "./_app";
 import { Header } from "@/Components";
 
 const geistSans = Geist({
@@ -30,10 +30,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} antialiased`}
       >
-        <DynamicContext>
+        <Web3Provider>
           <Header />
           {children}
-        </DynamicContext>
+        </Web3Provider>
       </body>
     </html>
   );
