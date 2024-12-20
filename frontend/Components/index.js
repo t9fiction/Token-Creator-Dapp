@@ -11,6 +11,7 @@ import Information from "./Information";
 import Staking from "./Staking";
 import Swap from "./Swap";
 import Welcome from "./Welcome";
+import Navbar from "./Navbar";
 
 import ERC20 from "./Profile/ERC20";
 import UserProfile from "./Profile/UserProfile";
@@ -26,6 +27,7 @@ export {
   Footer,
   About,
   Brand,
+  Navbar,
   Faq,
   Feature,
   HeroSection,
