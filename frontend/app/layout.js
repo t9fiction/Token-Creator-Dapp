@@ -2,6 +2,7 @@ import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { Web3Provider } from "./_app";
 import { Header } from "@/Components";
+import { ERC20Provider } from "@/Context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,8 +32,10 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} antialiased`}
       >
         <Web3Provider>
-          <Header />
-          {children}
+          <ERC20Provider>
+            <Header />
+            {children}
+          </ERC20Provider>
         </Web3Provider>
       </body>
     </html>
