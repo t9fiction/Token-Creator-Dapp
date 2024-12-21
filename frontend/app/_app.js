@@ -13,7 +13,7 @@ const config = createConfig(
       [mainnet.id]: http(
         `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`,
       ),
-      [hardhat.id]: http(`http://127.0.0.1:8545`),
+      // [hardhat.id]: http(`http://127.0.0.1:8545`),
     },
 
     // Required API Keys
