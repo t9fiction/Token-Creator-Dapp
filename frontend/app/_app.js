@@ -1,5 +1,6 @@
 'use client'
-import { WagmiProvider, createConfig, http } from "wagmi";
+import { WagmiProvider, createConfig } from "wagmi";
+import { createPublicClient, http } from 'viem'
 import { hardhat, mainnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
@@ -13,7 +14,7 @@ export const config = createConfig(
       [mainnet.id]: http(
         `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`,
       ),
-      // [hardhat.id]: http(`http://127.0.0.1:8545`),
+      [hardhat.id]: http(`http://127.0.0.1:8545`),
     },
 
     // Required API Keys
@@ -28,6 +29,12 @@ export const config = createConfig(
     appIcon: "https://family.co/logo.png", // your app's icon, no bigger than 1024x1024px (max. 1MB)
   }),
 );
+
+ 
+export const publicClient = createPublicClient({
+  chain: hardhat,
+  transport: http()
+})
 
 const queryClient = new QueryClient();
 
