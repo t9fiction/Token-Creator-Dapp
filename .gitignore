@@ -19,6 +19,7 @@ frontend/.next/
 # Ignore package lock files
 frontend/package-lock.json
 frontend/yarn.lock
+backend/cache/*
 
 # Ignore log files
 npm-debug.log*

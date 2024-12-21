@@ -2,7 +2,7 @@ import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { Web3Provider } from "./_app";
 import { Header } from "@/Components";
-import { ERC20Provider } from "@/Context";
+import { ERC20Provider, StateContextProvider } from "@/Context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,10 +32,10 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} antialiased`}
       >
         <Web3Provider>
-          <ERC20Provider>
+          <StateContextProvider>
             <Header />
             {children}
-          </ERC20Provider>
+          </StateContextProvider>
         </Web3Provider>
       </body>
     </html>
